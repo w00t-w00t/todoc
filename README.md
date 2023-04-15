@@ -1,4 +1,4 @@
-# MVP/MVVM Project
+# Data persistence project
 
 ## Description
 
