@@ -6,7 +6,7 @@ This is a project to demonstrate data persistence implementation in Android app.
 
 I used it, when I teach Android in engineering schools.
 
-## Use case diagram
+## UML Use case diagram
 
 You can create it with [draw.io](https://app.diagrams.net/) from scratch or import it from [here](./documentation/usecase.drawio).
 
@@ -21,3 +21,11 @@ You can create it with [mysql workbench](https://dev.mysql.com/downloads/workben
 ![Physical Schema](./documentation/physical.png)
 
 [PDF Version](./documentation/physical.pdf)
+
+## UML Class diagram
+
+You can create it with [Visual Paradigm Entreprise](https://www.visual-paradigm.com/editions/enterprise/) from scratch or import it from [here](./documentation/todoc.vpp) or [here](./todoc.vpdm/Class%20Diagram1.vpd).
+
+![Class Diagram](./documentation/class.png)
+
+[PDF Version](./documentation/class.pdf)
