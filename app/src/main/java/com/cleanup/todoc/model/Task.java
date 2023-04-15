@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Comparator;
@@ -54,8 +55,16 @@ public class Task {
      * @param name              the name of the task to set
      * @param creationTimestamp the timestamp when the task has been created to set
      */
+    @Ignore
     public Task(long id, long projectId, @NonNull String name, long creationTimestamp) {
         this.setId(id);
+        this.setProjectId(projectId);
+        this.setName(name);
+        this.setCreationTimestamp(creationTimestamp);
+    }
+
+    public Task(long projectId, @NonNull String name, long creationTimestamp) {
+        this.setId(0);
         this.setProjectId(projectId);
         this.setName(name);
         this.setCreationTimestamp(creationTimestamp);
@@ -71,11 +80,20 @@ public class Task {
     }
 
     /**
+     * Returns the timestamp when the task has been created.
+     *
+     * @return the timestamp when the task has been created
+     */
+    public long getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    /**
      * Sets the unique identifier of the task.
      *
      * @param id the unique idenifier of the task to set
      */
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -84,8 +102,16 @@ public class Task {
      *
      * @param projectId the unique identifier of the project associated to the task to set
      */
-    private void setProjectId(long projectId) {
+    public void setProjectId(long projectId) {
         this.projectId = projectId;
+    }
+
+    /**
+     * Returns the unique identifier of the task.
+     * @return the unique identifier of the task
+     */
+    public long getProjectId() {
+        return projectId;
     }
 
     /**
@@ -113,7 +139,7 @@ public class Task {
      *
      * @param name the name of the task to set
      */
-    private void setName(@NonNull String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 
@@ -122,7 +148,7 @@ public class Task {
      *
      * @param creationTimestamp the timestamp when the task has been created to set
      */
-    private void setCreationTimestamp(long creationTimestamp) {
+    public void setCreationTimestamp(long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }
 
