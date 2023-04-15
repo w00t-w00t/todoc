@@ -14,6 +14,14 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 [PDF Version](./documentation/usecase.pdf)
 
+## Logical data model
+
+You can create it with [draw.io](https://app.diagrams.net/) from scratch or import it from [here](./documentation/logical.drawio).
+
+![Logical Schema](./documentation/logical.png)
+
+[PDF Version](./documentation/logical.pdf)
+
 ## Physical data model
 
 You can create it with [mysql workbench](https://dev.mysql.com/downloads/workbench/) from scratch or import it from [here](./documentation/physical.mwb).
