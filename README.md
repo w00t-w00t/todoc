@@ -14,7 +14,9 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 [PDF Version](./documentation/usecase.pdf)
 
-## Logical data model
+## Model entities
+
+### UML logical data model
 
 You can create it with [draw.io](https://app.diagrams.net/) from scratch or import it from [here](./documentation/logical.drawio).
 
@@ -22,7 +24,7 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 [PDF Version](./documentation/logical.pdf)
 
-## Physical data model
+### Physical data model
 
 You can create it with [mysql workbench](https://dev.mysql.com/downloads/workbench/) from scratch or import it from [here](./documentation/physical.mwb).
 
