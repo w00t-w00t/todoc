@@ -16,7 +16,7 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 ## Physical data model
 
-You can create it with [mysql workbench](https://www.mysql.com/products/workbench/) from scratch or import it from [here](./documentation/physical.mwb).
+You can create it with [mysql workbench](https://dev.mysql.com/downloads/workbench/) from scratch or import it from [here](./documentation/physical.mwb).
 
 ![Physical Schema](./documentation/physical.png)
 
