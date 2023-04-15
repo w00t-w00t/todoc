@@ -16,7 +16,7 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 ## Model entities
 
-### UML logical data model
+### Logical data model (UML)
 
 You can create it with [draw.io](https://app.diagrams.net/) from scratch or import it from [here](./documentation/logical.drawio).
 
