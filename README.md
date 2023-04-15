@@ -1,4 +1,4 @@
-# Data persistence project
+# Android data persistence
 
 ## Description
 
