@@ -12,9 +12,7 @@ You can create it with [draw.io](https://app.diagrams.net/) from scratch or impo
 
 ![Use Case](./documentation/usecase.png)
 
-
-
-
+[PDF Version](./documentation/usecase.pdf)
 
 
 
