@@ -19,18 +19,41 @@ android {
     lintOptions {
         disable 'RestrictedApi'
     }
+    defaultConfig {
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+    }
+    testOptions {
+        // avoid mock errors with unit tests
+        unitTests.returnDefaultValues = true
+    }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // COMPATIBILITY
     implementation 'androidx.appcompat:appcompat:1.3.1'
+
+    // UNIT TEST
+    testImplementation 'junit:junit:4.13.2'
+
+    // UI
+    implementation 'com.google.android.material:material:1.4.0'
+
+    // ORM
     implementation 'androidx.room:room-common:2.4.2'
     implementation 'androidx.room:room-runtime:2.4.2'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    implementation 'com.google.android.material:material:1.4.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
+
+    // INSTRUMENTATION TEST
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.0'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.arch.core:core-testing:2.0.0'
 }

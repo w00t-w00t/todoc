@@ -1,5 +1,6 @@
 package com.cleanup.todoc.database;
 
+import android.app.ActivityManager;
 import android.content.ContentValues;
 import android.content.Context;
 
@@ -15,6 +16,8 @@ import com.cleanup.todoc.database.dao.TaskDao;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * The Room database that contains the Task and Project tables
  */
@@ -27,6 +30,29 @@ public abstract class TodocDatabase extends RoomDatabase {
     public static volatile TodocDatabase INSTANCE;
 
     /**
+     * Detect if instrumentation test is running
+     */
+    private static AtomicBoolean isRunningTest;
+    public static synchronized boolean isRunningTest() {
+        // do some caching to avoid checking every time
+        if (null == isRunningTest) {
+            boolean istest;
+
+            try {
+                // androidx only
+                Class.forName ("androidx.test.espresso.Espresso");
+                istest = true;
+            } catch (ClassNotFoundException e) {
+                istest = false;
+            }
+
+            isRunningTest = new AtomicBoolean(istest);
+        }
+
+        return isRunningTest.get();
+    }
+
+    /**
      * Get the singleton instance of the database for a given context
      *
      * @param context the context
@@ -36,14 +62,29 @@ public abstract class TodocDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (TodocDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            TodocDatabase.class,
-                            // SQLite database file name stored in the app's private data directory
-                            "TodocDatabase.db")
 
-                            // Do callback to pre-populate the database
-                            .addCallback(prepopulateDatabase())
-                            .build();
+                    // Is instrumentation test running?
+                    if( isRunningTest() ) {
+                        // Use an in-memory database
+                        INSTANCE = Room.inMemoryDatabaseBuilder(context.getApplicationContext(),
+                                        TodocDatabase.class)
+                                // Allow main thread queries, just for testing
+                                .allowMainThreadQueries()
+                                // Do callback to pre-populate the database
+                                .addCallback(prepopulateDatabase())
+                                // Build the database
+                                .build();
+                    } else {
+                        // Use a real database
+                        INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                                TodocDatabase.class,
+                                // SQLite database file name stored in the app's private data directory
+                                "TodocDatabase.db")
+
+                        // Do callback to pre-populate the database
+                        .addCallback(prepopulateDatabase())
+                        .build();
+                    }
                 }
             }
         }
