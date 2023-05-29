@@ -15,14 +15,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
-import com.cleanup.todoc.database.injections.Injection;
-import com.cleanup.todoc.database.injections.ViewModelFactory;
+import com.cleanup.todoc.injections.Injection;
+import com.cleanup.todoc.injections.ViewModelFactory;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
+import com.cleanup.todoc.viewmodel.TaskViewModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,11 +38,10 @@ import androidx.lifecycle.ViewModelProvider;
  * <p>Displays the list of tasks.</p>
  */
 public class MainActivity extends AppCompatActivity implements TasksAdapter.DeleteTaskListener {
-    /**
-     * List of all projects available in the application
-     */
-    private List<Project> allProjects;
 
+    /**
+     * The ViewModel of the activity
+     */
     private TaskViewModel mTaskViewModel;
 
     /**
@@ -113,9 +114,14 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             }
         });
 
+        // configure ViewModel thanks to ViewModelFactory
         configureViewModel();
-        getProjects();
-        getTasks();
+
+        // initial observe of projects
+        observeProjects();
+
+        // initial observe of tasks
+        observeTasks();
     }
 
     private void configureViewModel() {
@@ -124,15 +130,11 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
         mTaskViewModel.init();
     }
 
-    private void getProjects() {
+    private void observeProjects() {
         mTaskViewModel.getProjects().observe(this, this::updateProjects);
     }
 
-    private void updateProjects(List<Project> projects) {
-        allProjects = projects;
-    }
-
-    private void getTasks() {
+    private void observeTasks() {
         mTaskViewModel.getTasks().observe(this, this::updateTasks);
     }
 
@@ -156,13 +158,18 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
             sortMethod = SortMethod.RECENT_FIRST;
         }
 
-        getTasks();
+        // we force the refresh of the list of tasks
+        // to display the tasks sorted in the selected order
+        // because the observer is not triggered when the sort method is changed
+        observeTasks();
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onDeleteTask(Task task) {
         mTaskViewModel.deleteTask(task);
+        // we ensure the list of tasks is updated at this point
+        observeTasks();
     }
 
     /**
@@ -204,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
                 dialogInterface.dismiss();
             }
         }
-        // If dialog is aloready closed
+        // If dialog is already closed
         else {
             dialogInterface.dismiss();
         }
@@ -231,6 +238,16 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      */
     private void addTask(@NonNull Task task) {
         mTaskViewModel.createTask(task);
+        // we ensure the list of tasks is updated at this point
+        observeTasks();
+    }
+
+    /**
+     * Updates the list of projects in the UI
+     * @param projects the list of projects to be displayed in the UI thanks to the adapter
+     */
+    private void updateProjects(List<Project> projects){
+        adapter.updateProjects(projects);
     }
 
     /**
@@ -310,11 +327,20 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
      * Sets the data of the Spinner with projects to associate to a new task
      */
     private void populateDialogSpinner() {
-        final ArrayAdapter<Project> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allProjects);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if (dialogSpinner != null) {
-            dialogSpinner.setAdapter(adapter);
-        }
+        final Observer<List<Project>> projectObserver = new Observer<List<Project>>() {
+            @Override
+            public void onChanged(@Nullable final List<Project> projects) {
+                if (projects != null) {
+                    final ArrayAdapter<Project> adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_spinner_item, projects);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    if (dialogSpinner != null) {
+                        dialogSpinner.setAdapter(adapter);
+                    }
+                }
+                mTaskViewModel.getProjects().removeObserver(this);
+            }
+        };
+        mTaskViewModel.getProjects().observe(this, projectObserver);
     }
 
     /**

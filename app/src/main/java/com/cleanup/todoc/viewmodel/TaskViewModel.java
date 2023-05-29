@@ -1,4 +1,4 @@
-package com.cleanup.todoc.ui;
+package com.cleanup.todoc.viewmodel;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
@@ -13,8 +13,12 @@ import java.util.List;
 import java.util.concurrent.Executor;
 
 public class TaskViewModel extends ViewModel {
+
+    // Repositories
     private final ProjectDataRepository mProjectDataSource;
     private final TaskDataRepository mTaskDataSource;
+
+    // Executor to avoid using the UI main thread while doing access to the database
     private final Executor mExecutor;
 
     @Nullable

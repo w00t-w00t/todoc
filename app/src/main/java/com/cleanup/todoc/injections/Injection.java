@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database.injections;
+package com.cleanup.todoc.injections;
 
 import android.content.Context;
 

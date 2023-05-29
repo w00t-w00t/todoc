@@ -1,4 +1,4 @@
-package com.cleanup.todoc.database.injections;
+package com.cleanup.todoc.injections;
 
 
 import androidx.annotation.NonNull;
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.cleanup.todoc.repositories.ProjectDataRepository;
 import com.cleanup.todoc.repositories.TaskDataRepository;
-import com.cleanup.todoc.ui.TaskViewModel;
+import com.cleanup.todoc.viewmodel.TaskViewModel;
 
 import java.util.concurrent.Executor;
 
