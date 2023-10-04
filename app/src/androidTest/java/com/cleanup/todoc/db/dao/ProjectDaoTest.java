@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.cleanup.todoc.database.TodocDatabase;
+import com.cleanup.todoc.model.database.TodocDatabase;
 import com.cleanup.todoc.db.utils.LiveDataTestUtil;
 import com.cleanup.todoc.model.Project;
 
