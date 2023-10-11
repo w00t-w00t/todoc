@@ -45,12 +45,6 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
     private TaskViewModel mTaskViewModel;
 
     /**
-     * List of all current tasks of the application
-     */
-    @NonNull
-    private final ArrayList<Task> tasks = new ArrayList<>();
-
-    /**
      * The adapter which handles the list of tasks
      */
     private TasksAdapter adapter;
