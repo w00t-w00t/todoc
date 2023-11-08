@@ -34,9 +34,6 @@ public class MainActivityInstrumentedTest {
 
     private MainActivity mActivity;
 
-    // Get reference to the ToDoc database
-    private TodocDatabase database;
-
     @Before
     public void setup() {
 
