@@ -13,7 +13,6 @@ import static com.cleanup.todoc.TestUtils.withRecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.cleanup.todoc.model.database.TodocDatabase;
 import com.cleanup.todoc.ui.MainActivity;
 
 import org.junit.Before;
