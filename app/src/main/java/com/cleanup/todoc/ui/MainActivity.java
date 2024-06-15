@@ -21,12 +21,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
 import com.cleanup.todoc.injections.Injection;
-import com.cleanup.todoc.injections.ViewModelFactory;
+import com.cleanup.todoc.viewmodel.ViewModelFactory;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.viewmodel.TaskViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

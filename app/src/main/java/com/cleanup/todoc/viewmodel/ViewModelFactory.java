@@ -1,4 +1,4 @@
-package com.cleanup.todoc.injections;
+package com.cleanup.todoc.viewmodel;
 
 
 import androidx.annotation.NonNull;
@@ -56,7 +56,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
         // Create a ViewModel for the TaskViewModel class
         if (modelClass.isAssignableFrom(TaskViewModel.class)) {
-            return (T) new TaskViewModel(mProjectDataSource, mTaskDataSource, mExecutor);
+           return (T) new TaskViewModel(mProjectDataSource, mTaskDataSource, mExecutor);
         }
 
         // If the ViewModel class is unknown, throw an exception
